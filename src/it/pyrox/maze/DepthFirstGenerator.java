@@ -1,6 +1,6 @@
 package it.pyrox.maze;
 
-public class DepthFirstGenerator {
+public class DepthFirstGenerator extends Generator {
 	
 	private Maze maze;
 	

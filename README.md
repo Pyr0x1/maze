@@ -18,3 +18,23 @@ PrimGenerator PGen = new PrimGenerator();
 Maze maze = PGen.generate(10, 20);
 System.out.println(maze);
 ```
+
+The output will be something like this:
+
++ + + + + + + + + + + + + + + + + + + + +
++                       +       +       +
++   +   + + + + +   + + + + +   +   +   +
++   +       +   +   +               +   +
++   +   + + +   + + +   +   +   +   + + +
++   +                   +   +   +       +
++ + +   +   +   +   + + + + + + + + +   +
++       +   +   +                   +   +
++ + +   + + +   +   +   +   + + + + +   +
++           +   +   +   +           +   +
++ + + + + + + + + + + + + + + + + + + + +
+
+It is also possible to get a boolean representation of the maze (true for walls, false for floors), by calling
+
+```java
+maze.toBoolean();
+```

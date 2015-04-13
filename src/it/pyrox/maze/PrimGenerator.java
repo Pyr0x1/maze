@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PrimGenerator {
+public class PrimGenerator extends Generator {
 	
 	private Maze maze;
 	private List<Wall> wallList;
