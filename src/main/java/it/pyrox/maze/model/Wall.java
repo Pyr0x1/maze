@@ -4,8 +4,8 @@ public class Wall extends Cell {
 	
 	private Floor father;
 	
-	public Wall(int x, int y) {
-		super(x, y);
+	public Wall(int row, int col) {
+		super(row, col);
 	}
 
 	public Floor getFather() {
@@ -17,7 +17,7 @@ public class Wall extends Cell {
 	}
 	
 	public boolean isBorder(int height, int width) {
-		if (x > 0 && x < height - 1 && y > 0 && y < width - 1) {
+		if (row > 0 && row < height - 1 && col > 0 && col < width - 1) {
 			return false;
 		}
 		else {

@@ -15,7 +15,7 @@ public class DepthFirstGenerator extends Generator {
 		maze = new Maze(width, height);
 		controller.initSingleFloors(maze);
 		
-		Floor currentFloor = (Floor) maze.getCellAt(1, 1);
+		Floor currentFloor = (Floor) controller.getCellAt(maze, 1, 1);
 		currentFloor.setVisited(true);
 		visit(currentFloor);
 		
@@ -26,7 +26,7 @@ public class DepthFirstGenerator extends Generator {
 		Position[] positions = Position.getRandomPositions(100);
 		
 		for (int i = 0; i < Position.TOTAL.getInt(); i++) {
-			Floor nextFloor = (Floor) maze.getCellAtPosition(currentFloor, positions[i], 2);
+			Floor nextFloor = (Floor) controller.getCellAtPosition(maze, currentFloor, positions[i], 2);
 			if (nextFloor != null && !nextFloor.isClosed() && !nextFloor.isVisited()) {
 				nextFloor.setVisited(true);
 				controller.breakWall(maze, currentFloor, nextFloor);

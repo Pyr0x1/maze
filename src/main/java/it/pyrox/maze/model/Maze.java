@@ -1,7 +1,5 @@
 package it.pyrox.maze.model;
 
-import it.pyrox.maze.enums.Position;
-
 public class Maze {
 	
 	private Cell[][] matrix;
@@ -20,68 +18,9 @@ public class Maze {
 		this.width = width;
 		this.height = height;
 	}
-	
-	public Cell getCellAt(int x, int y) {
-		return matrix[x][y];
-	}
-	
-	public Cell getCellAtPosition(Cell cell, Position position, int step) {		
-		if (cell == null) {
-			return null;
-		}
 		
-		int x = cell.getX();
-		int y = cell.getY();
-		
-		Cell toReturn = null;
-		
-		switch (position) {
-		
-			case UP:
-				x -= step;
-				if (x >= 0) {
-					toReturn = getCellAt(x, y);
-				}
-				break;
-				
-			case RIGHT:
-				y += step;
-				if (y < width) {
-					toReturn = getCellAt(x, y);
-				}
-				break;
-				
-			case DOWN:
-				x += step;
-				if (x < height) {
-					toReturn = getCellAt(x, y);
-				}
-				break;
-				
-			case LEFT:
-				y -= step;
-				if (y >= 0) {
-					toReturn = getCellAt(x, y);
-				}
-				break;
-				
-			case TOTAL:
-				break;
-		}
-		
-		return toReturn;
-	}
-	
-	public void setFloor(int x, int y) {
-		if (!(matrix[x][y] instanceof Floor)) {
-			matrix[x][y] = new Floor(x, y);
-		}
-	}
-	
-	public void setWall(int x, int y) {
-		if (!(matrix[x][y] instanceof Wall)) {
-			matrix[x][y] = new Wall(x, y);
-		}
+	public Cell[][] getMatrix() {
+		return matrix;
 	}
 	
 	public int getWidth() {
@@ -92,13 +31,25 @@ public class Maze {
 		return height;
 	}
 	
+	public void setFloor(int row, int col) {
+		if (!(matrix[row][col] instanceof Floor)) {
+			matrix[row][col] = new Floor(row, col);
+		}
+	}
+	
+	public void setWall(int row, int col) {
+		if (!(matrix[row][col] instanceof Wall)) {
+			matrix[row][col] = new Wall(row, col);
+		}
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				if (getCellAt(i, j) instanceof Floor) {
+				if (matrix[i][j] instanceof Floor) {
 					builder.append(" ");
 					if (j < width - 1) {
 						builder.append(" ");
@@ -124,7 +75,7 @@ public class Maze {
 		
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				if (getCellAt(i, j) instanceof Floor)
+				if (matrix[i][j] instanceof Floor)
 					result[i][j] = false;
 				else
 					result[i][j] = true;

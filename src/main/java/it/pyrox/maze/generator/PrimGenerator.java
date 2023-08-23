@@ -25,7 +25,7 @@ public class PrimGenerator extends Generator {
 		maze.setFloor(1, 1);
 		
 		wallList = new ArrayList<>();
-		addWalls((Floor) maze.getCellAt(1, 1));
+		addWalls((Floor) controller.getCellAt(maze, 1, 1));
 		
 		Random randomGenerator = new Random();
 
@@ -43,7 +43,7 @@ public class PrimGenerator extends Generator {
 	private void addWalls(Floor floor) {		
 		for (int i = 0; i < Position.TOTAL.getInt(); i++) {
 		
-			Cell cell = maze.getCellAtPosition(floor, Position.getPosition(i), 1);
+			Cell cell = controller.getCellAtPosition(maze, floor, Position.getPosition(i), 1);
 			Wall wall = null;
 			
 			if (cell instanceof Wall) {

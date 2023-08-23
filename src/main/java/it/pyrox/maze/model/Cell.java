@@ -3,27 +3,27 @@ package it.pyrox.maze.model;
 public class Cell {
 	
 	// TODO maybe coordinates are useless
-	protected int x;
-	protected int y;
+	protected int row;
+	protected int col;
 	
-	public Cell(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Cell(int row, int col) {
+		this.row = row;
+		this.col = col;
 	}
 
-	public int getX() {
-		return x;
+	public int getRow() {
+		return row;
 	}
 
-	public void setX(int x) {
-		this.x = x;
+	public void setRow(int row) {
+		this.row = row;
 	}
 
-	public int getY() {
-		return y;
+	public int getCol() {
+		return col;
 	}
 
-	public void setY(int y) {
-		this.y = y;
+	public void setCol(int col) {
+		this.col = col;
 	}
 }

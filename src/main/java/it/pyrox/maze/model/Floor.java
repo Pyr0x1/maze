@@ -5,8 +5,8 @@ public class Floor extends Cell {
 	private boolean visited;
 	private boolean closed;
 	
-	public Floor(int x, int y) {
-		super(x, y);
+	public Floor(int row, int col) {
+		super(row, col);
 		visited = false;
 		closed = false;
 	}

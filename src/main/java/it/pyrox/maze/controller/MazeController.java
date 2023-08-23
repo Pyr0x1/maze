@@ -1,10 +1,65 @@
 package it.pyrox.maze.controller;
 
+import it.pyrox.maze.enums.Position;
+import it.pyrox.maze.model.Cell;
 import it.pyrox.maze.model.Floor;
 import it.pyrox.maze.model.Maze;
 import it.pyrox.maze.model.Wall;
 
 public class MazeController {
+	
+	public Cell getCellAt(Maze maze, int row, int col) {
+		return maze.getMatrix()[row][col];
+	}
+	
+	public Cell getCellAtPosition(Maze maze, Cell cell, Position position, int step) {		
+		if (cell == null) {
+			return null;
+		}
+		
+		int col = cell.getCol();
+		int row = cell.getRow();
+		int width = maze.getWidth();
+		int height = maze.getHeight();
+		
+		Cell toReturn = null;
+		
+		switch (position) {
+		
+			case LEFT:
+				col -= step;
+				if (col >= 0) {
+					toReturn = getCellAt(maze, row, col);
+				}
+				break;
+				
+			case UP:
+				row -= step;
+				if (row >= 0) {
+					toReturn = getCellAt(maze, row, col);
+				}
+				break;
+				
+			case RIGHT:
+				col += step;
+				if (col < width) {
+					toReturn = getCellAt(maze, row, col);
+				}
+				break;
+				
+			case DOWN:
+				row += step;
+				if (row < height) {
+					toReturn = getCellAt(maze, row, col);
+				}
+				break;
+				
+			case TOTAL:
+				break;
+		}
+		
+		return toReturn;
+	}
 	
 	public void initAllWall(Maze maze) {		
 		for (int i = 0; i < maze.getHeight(); i++) {
@@ -32,50 +87,50 @@ public class MazeController {
 	}
 	
 	public void breakWall(Maze maze, Floor floor1, Floor floor2) {		
-		int x1 = floor1.getX();
-		int x2 = floor2.getX();
-		int y1 = floor1.getY();
-		int y2 = floor2.getY();
+		int col1 = floor1.getCol();
+		int col2 = floor2.getCol();
+		int row1 = floor1.getRow();
+		int row2 = floor2.getRow();
 		
 		// only works with adjacent cells
-		if (x1 == x2) {
-			maze.setFloor(x1, Math.abs((y2 + y1) / 2));			
+		if (col1 == col2) {
+			maze.setFloor(Math.abs((row2 + row1) / 2), col1);	
 		}
-		else if (y1 == y2) {
-			maze.setFloor(Math.abs((x2 + x1) / 2), y1);			
+		else if (row1 == row2) {
+			maze.setFloor(row1, Math.abs((col2 + col1) / 2));			
 		}
 	}
 	
 	public Floor breakWall(Maze maze, Wall wall) {		
 		Floor father = wall.getFather();
 		Floor newFloor = null;
-		int xW = wall.getX();
-		int xF = father.getX();
-		int yW = wall.getY();
-		int yF = father.getY();
+		int colW = wall.getCol();
+		int colF = father.getCol();
+		int rowW = wall.getRow();
+		int rowF = father.getRow();
 		
-		if (xW == xF) {
-			if (yF < yW) {
-				newFloor = new Floor(xW, yW + 1);
+		if (colW == colF) {
+			if (rowF < rowW) {
+				newFloor = new Floor(rowW + 1, colW);
 			}
-			else if (yF > yW) {
-				newFloor = new Floor(xW, yW - 1);				
+			else if (rowF > rowW) {
+				newFloor = new Floor(rowW - 1, colW);				
 			}
 		}
-		else if (yW == yF){
-			if (xF < xW) {
-				newFloor = new Floor(xW + 1, yW);
+		else if (rowW == rowF){
+			if (colF < colW) {
+				newFloor = new Floor(rowW, colW + 1);
 			}
 			else {
-				newFloor = new Floor(xW - 1, yW);
+				newFloor = new Floor(rowW, colW - 1);
 			}
 		}
 		
 		if (newFloor != null) {
-			maze.setFloor(newFloor.getX(), newFloor.getY());
+			maze.setFloor(newFloor.getRow(), newFloor.getCol());
 		}
 		
-		maze.setFloor(xW, yW);
+		maze.setFloor(rowW, colW);
 		
 		return newFloor;
 	}
